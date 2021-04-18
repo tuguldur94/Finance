@@ -17,6 +17,21 @@ var uniController = (function () {
         getDOMstrings: function(){
             return DOMstrings;
         },
+        clearFields : function() {
+            var fields = document.querySelectorAll(
+                DOMstrings.inputDescription + ", " + DOMstrings.inputValue
+            );
+            // convert List to Array
+            var fieldsArr = Array.prototype.slice.call(fields);
+            
+            // for (var i = 0; i< fieldsArr.length; i++) {
+            //     fieldsArr[i].value = "";
+            // }
+            fieldsArr.forEach(function(el, index, array){
+                el.value = "";
+            });
+            fieldsArr[0].focus();
+        },
         addListItem : function (item, type){
             // Орлого зарлагын элементийг агуулах HTML - ийг бэлтгэх
             var html, list;
@@ -89,6 +104,7 @@ var appController = (function (uniCont, finCont) {
         var item = financeController.addItem(input.type, input.description, input.value);
         // 3. Олж авсан өгөгдлүүдээ веб дээрээ тохирох хэсэгт нь гаргана.
         uniController.addListItem(item, input.type);
+        uniController.clearFields();
         // 4. Төсөв тооцоолно.
         // 5. Эцсийн үлдэгдэл, тооцоог дэлгэцэнд гаргана.
     }
